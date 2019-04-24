@@ -23,79 +23,79 @@ track
 # In[3]:
 
 
-client = pd.read_csv('2018 ABACUS CLIENTS.csv')
-client.plot()
+# client = pd.read_csv('2018 ABACUS CLIENTS.csv')
+# client.plot()
 
 
 # In[4]:
 
 
-def lcs(X , Y): 
-    # find the length of the strings 
-    m = len(X) 
-    n = len(Y) 
+# def lcs(X , Y): 
+#     # find the length of the strings 
+#     m = len(X) 
+#     n = len(Y) 
   
-    # declaring the array for storing the dp values 
-    L = [[None]*(n+1) for i in range(m+1)] 
+#     # declaring the array for storing the dp values 
+#     L = [[None]*(n+1) for i in range(m+1)] 
   
-    """Following steps build L[m+1][n+1] in bottom up fashion 
-    Note: L[i][j] contains length of LCS of X[0..i-1] 
-    and Y[0..j-1]"""
-    for i in range(m+1): 
-        for j in range(n+1): 
-            if i == 0 or j == 0 : 
-                L[i][j] = 0
-            elif X[i-1] == Y[j-1]: 
-                L[i][j] = L[i-1][j-1]+1
-            else: 
-                L[i][j] = max(L[i-1][j] , L[i][j-1]) 
-    return L[m][n] 
-#end of function lcs 
+#     """Following steps build L[m+1][n+1] in bottom up fashion 
+#     Note: L[i][j] contains length of LCS of X[0..i-1] 
+#     and Y[0..j-1]"""
+#     for i in range(m+1): 
+#         for j in range(n+1): 
+#             if i == 0 or j == 0 : 
+#                 L[i][j] = 0
+#             elif X[i-1] == Y[j-1]: 
+#                 L[i][j] = L[i-1][j-1]+1
+#             else: 
+#                 L[i][j] = max(L[i-1][j] , L[i][j-1]) 
+#     return L[m][n] 
+# #end of function lcs 
 
 
 # In[5]:
 
 
-def getClientRef(c, clientlist):
-    num = str(clientlist.loc[c,'SR. NO.']) + '.'
-    for char in clientlist.loc[c,'LIST OF COMPANY']:
-        if char != '.':
-            num = num + char
-        else:
-            break
-    return num
+# def getClientRef(c, clientlist):
+#     num = str(clientlist.loc[c,'SR. NO.']) + '.'
+#     for char in clientlist.loc[c,'LIST OF COMPANY']:
+#         if char != '.':
+#             num = num + char
+#         else:
+#             break
+#     return num
     
-def bestmatch(candid,clientlist):
-    # Remove all bad charachters.
-    candid = ''.join(e for e in candid if e.isalnum())
-    c = 0
-    maxAl = 0
-    candidRow = []
-    num = ''
-    maxLCStoClient = 0
-    for client in clientlist['LIST OF COMPANY']:
+# def bestmatch(candid,clientlist):
+#     # Remove all bad charachters.
+#     candid = ''.join(e for e in candid if e.isalnum())
+#     c = 0
+#     maxAl = 0
+#     candidRow = []
+#     num = ''
+#     maxLCStoClient = 0
+#     for client in clientlist['LIST OF COMPANY']:
 
-        candidLcs = lcs(candid.lower(), client.lower())
-        LCStoClient = candidLcs / len(client)
-        if (candidLcs == len(candid)):
-            if (maxLCStoClient < LCStoClient):
-                candidRow = list(clientlist.iloc[c])
-                num = getClientRef(c, clientlist)
-                maxLCStoClient = LCStoClient
-        c+=1
+#         candidLcs = lcs(candid.lower(), client.lower())
+#         LCStoClient = candidLcs / len(client)
+#         if (candidLcs == len(candid)):
+#             if (maxLCStoClient < LCStoClient):
+#                 candidRow = list(clientlist.iloc[c])
+#                 num = getClientRef(c, clientlist)
+#                 maxLCStoClient = LCStoClient
+#         c+=1
 
 
-    return num, candidRow
+#     return num, candidRow
 # bestmatch('ANA GENERAL TRADING LLC',client)
 
 
 # In[6]:
 
 
-#Finding major company of REP.
-def majorCoOfREP(candid,client):
-    bestmatch(candid,client)
-    return ''
+# #Finding major company of REP.,
+# def majorCoOfREP(candid,client):,
+#     bestmatch(candid,client),
+#     return ''
 
 
 # In[7]:
@@ -117,8 +117,10 @@ def ordinal(date):
 
 
 def amontformat(totamount):
+    totamount = str(totamount)
     c = len(totamount) - 1
     buf = ''
+    buf1 = ''
     for i in range(c+1):
         if totamount[c - i] == '.':
             buf = totamount[c - i] + buf
@@ -136,9 +138,9 @@ def amontformat(totamount):
             buf =  buf[:3]
             c1 = len(totamount1) -1
             count = 1
-            buf1 = ''
+            
             for j in range(c1+1):
-                if count%3 == 0:
+                if (count%3 == 0) and (j!=c1) :
                     buf1 = ',' + totamount1[c1 - j] + buf1
                 else:
                     buf1 = totamount1[c1 - j] + buf1
@@ -153,7 +155,7 @@ def amontformat(totamount):
 # In[9]:
 
 
-amontformat(877000)
+# amontformat(877000.0)
 
 
 # In[10]:
@@ -162,7 +164,7 @@ amontformat(877000)
 def produceDocxFile(num,ref):
     #Title
     document =  Document('SPA.docx')
-    paragraph = document.add_paragraph('\n \n \n \n')
+    paragraph = document.add_paragraph('\n \n \n')
     par_format = paragraph.paragraph_format
     par_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run= paragraph.add_run('PURCHASE AND SALE AGREEMENT')
@@ -681,3 +683,7 @@ for co in range(len(track['REF'])):
 
 
 # In[ ]:
+
+
+
+
