@@ -679,7 +679,7 @@ for co in range(len(track['REF'])):
     totamount = amontformat(str(amount))
     amountToWord = vector[13]
     if(float(amount) >= 54449.00):
-        produceDocxFile(co, track.-loc[co, 'REF'])
+        produceDocxFile(co, track.loc[co, 'REF'])
         
 
 
