@@ -158,7 +158,7 @@ def amontformat(totamount):
 # amontformat(877000.0)
 
 
-# In[10]:
+# In[21]:
 
 
 def produceDocxFile(num,ref):
@@ -398,19 +398,23 @@ def produceDocxFile(num,ref):
     hdr_cells[3].text = 'UNIT OF MEASUREMENT'
     hdr_cells[4].text = 'UNIT PRICE'
     hdr_cells[5].text = 'AMOUNT'
-
+    for cell in table.rows[0].cells:
+        paragraphs = cell.paragraphs
+        for paragraph in paragraphs:
+            for run in paragraph.runs:
+                run.bold = True
     c = 0
     for SR, DESCRIPTION, UNITOFM, qty, UNITPRICE, AMOUNT in records:
         if c ==1:
-            paragraph = document.add_paragraph('\n \n \n \n \n')
-            table = document.add_table(rows=1, cols=6, style='Table Grid')
-            hdr_cells = table.rows[0].cells
-            hdr_cells[0].text = 'SR. NO.'
-            hdr_cells[1].text = 'DESCRIPTION'
-            hdr_cells[2].text = 'QTY'
-            hdr_cells[3].text = 'UNIT OF MEASUREMENT'
-            hdr_cells[4].text = 'UNIT PRICE'
-            hdr_cells[5].text = 'AMOUNT'
+            paragraph = document.add_paragraph('\n \n \n \n')
+#             table = document.add_table(rows=1, cols=6, style='Table Grid')
+#             hdr_cells = table.rows[0].cells
+#             hdr_cells[0].text = 'SR. NO.'
+#             hdr_cells[1].text = 'DESCRIPTION'
+#             hdr_cells[2].text = 'QTY'
+#             hdr_cells[3].text = 'UNIT OF MEASUREMENT'
+#             hdr_cells[4].text = 'UNIT PRICE'
+#             hdr_cells[5].text = 'AMOUNT'
 
         c += 1 
         row_cells = table.add_row().cells
@@ -431,11 +435,7 @@ def produceDocxFile(num,ref):
                     font.name = 'Arial Narrow'
                     font.size= Pt(10)
                     font.color.rgb = RGBColor(0x0, 0x0, 0x0)
-    for cell in table.rows[0].cells:
-        paragraphs = cell.paragraphs
-        for paragraph in paragraphs:
-            for run in paragraph.runs:
-                run.bold = True
+
     if len(records) == 1:
         paragraph = document.add_paragraph('\n \n \n')
 
@@ -590,7 +590,7 @@ def produceDocxFile(num,ref):
     document.save('output/' + str(ref) + '.docx')
 
 
-# In[11]:
+# In[22]:
 
 
 #PO tracking sheet
