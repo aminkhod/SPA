@@ -6,7 +6,7 @@
 
 from docx import Document
 from docx.shared import Inches
-from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.text import WD_ALIGN_PARAGRAPH 
 from docx.shared import Pt
 import pandas as pd
 from docx.shared import RGBColor
@@ -30,27 +30,27 @@ track
 # In[4]:
 
 
-# def lcs(X , Y):
-#     # find the length of the strings
-#     m = len(X)
-#     n = len(Y)
-
-#     # declaring the array for storing the dp values
-#     L = [[None]*(n+1) for i in range(m+1)]
-
-#     """Following steps build L[m+1][n+1] in bottom up fashion
-#     Note: L[i][j] contains length of LCS of X[0..i-1]
+# def lcs(X , Y): 
+#     # find the length of the strings 
+#     m = len(X) 
+#     n = len(Y) 
+  
+#     # declaring the array for storing the dp values 
+#     L = [[None]*(n+1) for i in range(m+1)] 
+  
+#     """Following steps build L[m+1][n+1] in bottom up fashion 
+#     Note: L[i][j] contains length of LCS of X[0..i-1] 
 #     and Y[0..j-1]"""
-#     for i in range(m+1):
-#         for j in range(n+1):
-#             if i == 0 or j == 0 :
+#     for i in range(m+1): 
+#         for j in range(n+1): 
+#             if i == 0 or j == 0 : 
 #                 L[i][j] = 0
-#             elif X[i-1] == Y[j-1]:
+#             elif X[i-1] == Y[j-1]: 
 #                 L[i][j] = L[i-1][j-1]+1
-#             else:
-#                 L[i][j] = max(L[i-1][j] , L[i][j-1])
-#     return L[m][n]
-# #end of function lcs
+#             else: 
+#                 L[i][j] = max(L[i-1][j] , L[i][j-1]) 
+#     return L[m][n] 
+# #end of function lcs 
 
 
 # In[5]:
@@ -64,7 +64,7 @@ track
 #         else:
 #             break
 #     return num
-
+    
 # def bestmatch(candid,clientlist):
 #     # Remove all bad charachters.
 #     candid = ''.join(e for e in candid if e.isalnum())
@@ -138,7 +138,7 @@ def amontformat(totamount):
             buf =  buf[:3]
             c1 = len(totamount1) -1
             count = 1
-
+            
             for j in range(c1+1):
                 if (count%3 == 0) and (j!=c1) :
                     buf1 = ',' + totamount1[c1 - j] + buf1
@@ -227,7 +227,7 @@ def produceDocxFile(num,ref):
         run.bold = True
 
 
-    #THIS PURCHASE AND SALE AGREEMENT is entered into this 8TH day of December 2018, by and between
+    #THIS PURCHASE AND SALE AGREEMENT is entered into this 8TH day of December 2018, by and between 
     paragraph = document.add_paragraph()
     par_format = paragraph.paragraph_format
     par_format.first_line_indent = Inches(0.27)
@@ -261,7 +261,7 @@ def produceDocxFile(num,ref):
     run.bold = True
 
     #WHEREAS, the SAUREX SPINNING SOULUTION GMBH & CO.KG - GILCHING, GERMANY and
-    # SHANGHAI SEVEN BENEVOLENCE INTERNATIONAL TRADE CO. LTD - SHANGHAI, CHINA represented
+    # SHANGHAI SEVEN BENEVOLENCE INTERNATIONAL TRADE CO. LTD - SHANGHAI, CHINA represented 
     #BEYZADE GENERAL TRADING L.L.C - DUBAI, U.A.E can enter into this Sale and Purchase Agreement
     #and sign pertinent documents with full rights under terms and conditions specified therein;
     paragraph = document.add_paragraph()
@@ -340,7 +340,7 @@ def produceDocxFile(num,ref):
     font.color.rgb = RGBColor(0x0, 0x0, 0x0)
 
     #Sale of Product.  SAUREX SPINNING SOULUTION GMBH & CO.KG - GILCHING, GERMANY hereby sells to
-    # SHANGHAI SEVEN BENEVOLENCE INTERNATIONAL TRADE CO. LTD - SHANGHAI, CHINA and
+    # SHANGHAI SEVEN BENEVOLENCE INTERNATIONAL TRADE CO. LTD - SHANGHAI, CHINA and 
     # SHANGHAI SEVEN BENEVOLENCE INTERNATIONAL TRADE CO. LTD - SHANGHAI, CHINA hereby purchases from
     # SAUREX SPINNING SOULUTION GMBH & CO.KG - GILCHING, GERMANY the product details below:
     paragraph = document.add_paragraph()
@@ -398,25 +398,21 @@ def produceDocxFile(num,ref):
     hdr_cells[3].text = 'UNIT OF MEASUREMENT'
     hdr_cells[4].text = 'UNIT PRICE'
     hdr_cells[5].text = 'AMOUNT'
-    for cell in table.rows[0].cells:
-        paragraphs = cell.paragraphs
-        for paragraph in paragraphs:
-            for run in paragraph.runs:
-                run.bold = True
+
     c = 0
     for SR, DESCRIPTION, UNITOFM, qty, UNITPRICE, AMOUNT in records:
-        if c ==2:
+        if c ==1:
             paragraph = document.add_paragraph('\n \n \n \n \n')
             table = document.add_table(rows=1, cols=6, style='Table Grid')
-            # hdr_cells = table.rows[0].cells
-            # hdr_cells[0].text = 'SR. NO.'
-            # hdr_cells[1].text = 'DESCRIPTION'
-            # hdr_cells[2].text = 'QTY'
-            # hdr_cells[3].text = 'UNIT OF MEASUREMENT'
-            # hdr_cells[4].text = 'UNIT PRICE'
-            # hdr_cells[5].text = 'AMOUNT'
+            hdr_cells = table.rows[0].cells
+            hdr_cells[0].text = 'SR. NO.'
+            hdr_cells[1].text = 'DESCRIPTION'
+            hdr_cells[2].text = 'QTY'
+            hdr_cells[3].text = 'UNIT OF MEASUREMENT'
+            hdr_cells[4].text = 'UNIT PRICE'
+            hdr_cells[5].text = 'AMOUNT'
 
-        c += 1
+        c += 1 
         row_cells = table.add_row().cells
         row_cells[0].text = str(SR)
         row_cells[1].text = DESCRIPTION
@@ -429,19 +425,23 @@ def produceDocxFile(num,ref):
             paragraphs = cell.paragraphs
             for paragraph in paragraphs:
                 par_format = paragraph.paragraph_format
-                par_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                par_format.alignment = WD_ALIGN_PARAGRAPH.CENTER            
                 for run in paragraph.runs:
                     font = run.font
                     font.name = 'Arial Narrow'
                     font.size= Pt(10)
                     font.color.rgb = RGBColor(0x0, 0x0, 0x0)
-
+    for cell in table.rows[0].cells:
+        paragraphs = cell.paragraphs
+        for paragraph in paragraphs:
+            for run in paragraph.runs:
+                run.bold = True
     if len(records) == 1:
         paragraph = document.add_paragraph('\n \n \n')
 
     #2. Purchase Price.   SHANGHAI SEVEN BENEVOLENCE INTERNATIONAL TRADE CO. LTD - SHANGHAI, CHINA shall pay
     #to SAUREX SPINNING SOULUTION GMBH & CO.KG - GILCHING, GERMANY for the Products and for all obligations
-    #specified herein, as full and complete consideration therefore, the sum of €      88,474.00
+    #specified herein, as full and complete consideration therefore, the sum of €      88,474.00 
     #(EIGHTY EIGHT THOUSAND FOUR HUNDRED SEVENTY FOUR EUROS ONLY).
     paragraph = document.add_paragraph()
     styles = document.styles
@@ -461,7 +461,7 @@ def produceDocxFile(num,ref):
     run4= paragraph.add_run( sellerName+' - '+sellerCity )
     run4.bold = True
 
-    run5= paragraph.add_run(' for the Products and for all obligations specified herein, as full ' +
+    run5= paragraph.add_run(' for the Products and for all obligations specified herein, as full ' + 
                             'and complete consideration therefore, the sum of ' )
 
     run6= paragraph.add_run(currency + ' ' + str(totamount))
@@ -470,9 +470,9 @@ def produceDocxFile(num,ref):
     run7= paragraph.add_run(' (' + amountToWord + ').')
 
 
-    #3.Payment.  Payment of the Purchase Price shall be made by
-    #SHANGHAI SEVEN BENEVOLENCE INTERNATIONAL TRADE CO. LTD - SHANGHAI, CHINA or its representative
-    #BEYZADE GENERAL TRADING L.L.C - DUBAI, U.A.E to SAUREX SPINNING SOULUTION GMBH & CO.KG - GILCHING, GERMANY
+    #3.Payment.  Payment of the Purchase Price shall be made by 
+    #SHANGHAI SEVEN BENEVOLENCE INTERNATIONAL TRADE CO. LTD - SHANGHAI, CHINA or its representative 
+    #BEYZADE GENERAL TRADING L.L.C - DUBAI, U.A.E to SAUREX SPINNING SOULUTION GMBH & CO.KG - GILCHING, GERMANY 
     #in full payment in advance before the delivery date.
     paragraph = document.add_paragraph()
     styles = document.styles
@@ -508,8 +508,8 @@ def produceDocxFile(num,ref):
 
 
     #Acceptance.   “Acceptance" of the Product shall be deemed to occur on the date when, in the reasonable
-    #opinion of SHANGHAI SEVEN BENEVOLENCE INTERNATIONAL TRADE CO. LTD - SHANGHAI, CHINA the Product conforms
-    #to the Specifications, and has continuously operated in compliance with the Specifications for thirty (30)
+    #opinion of SHANGHAI SEVEN BENEVOLENCE INTERNATIONAL TRADE CO. LTD - SHANGHAI, CHINA the Product conforms 
+    #to the Specifications, and has continuously operated in compliance with the Specifications for thirty (30) 
     #days after Product Turnover
     paragraph = document.add_paragraph()
     styles = document.styles
@@ -527,14 +527,14 @@ def produceDocxFile(num,ref):
     run2= paragraph.add_run(str(buyerName)+' - '+buyerCity)
     run2.bold = True
 
-    run4= paragraph.add_run(' the Product conforms to the Specifications, and has continuously operated in compliance ' +
+    run4= paragraph.add_run(' the Product conforms to the Specifications, and has continuously operated in compliance ' + 
                             'with the Specifications for thirty (30) days after Product Turnover.' )
 
-    #Indemnification. In the event either party breaches or is deemed to have breached any of the
+    #Indemnification. In the event either party breaches or is deemed to have breached any of the 
     #representations and warranties contained in this Agreement, or fails to perform or comply with any
     #of the covenants and agreements set forth in this Agreement, it shall hold harmless, indemnify and
     #defend the other party, and its directors, officers, shareholders, attorneys, representatives and
-    #agents, from and against any damages incurred by the non-defaulting party.
+    #agents, from and against any damages incurred by the non-defaulting party. 
     paragraph = document.add_paragraph()
     styles = document.styles
     paragraph.style = document.styles['List Paragraph']
@@ -555,7 +555,7 @@ def produceDocxFile(num,ref):
     #General. SAUREX SPINNING SOULUTION GMBH & CO.KG - GILCHING, GERMANY shall perform this Agreement
     #in compliance with all applicable local laws, rules, regulations, and ordinances, and represents that
     #it shall have obtained all licenses and permits required by law to engage in the activities necessary
-    #to perform its obligations under this Agreement.
+    #to perform its obligations under this Agreement.  
     paragraph = document.add_paragraph()
     styles = document.styles
     paragraph.style = document.styles['List Paragraph']
@@ -570,7 +570,7 @@ def produceDocxFile(num,ref):
     run2.bold = True
 
     run1= paragraph.add_run('shall perform this Agreement in compliance with all applicable local laws'+
-                            ', rules, regulations, and ordinances, and represents that it shall have ' +
+                            ', rules, regulations, and ordinances, and represents that it shall have ' + 
                             'obtained all licenses and permits required by law to engage in the activities ' +
                             'necessary to perform its obligations under this Agreement. ' )
     s = ''
@@ -679,7 +679,12 @@ for co in range(len(track['REF'])):
     totamount = amontformat(str(amount))
     amountToWord = vector[13]
     if(float(amount) >= 54449.00):
-        produceDocxFile(co, track.loc[co, 'REF'])
+        produceDocxFile(co, track.-loc[co, 'REF'])
+        
 
 
 # In[ ]:
+
+
+
+
